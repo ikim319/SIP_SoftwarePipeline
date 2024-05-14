@@ -1,33 +1,40 @@
 {
     "version": "2.0.0",
     "tasks": [
-        {
-            "label": "build and run",
-            "type": "shell",
-            "command": "g++",
-            "args": [
-                "-g",
-                "kalman_oov_oned.cpp",
-                "-o",
-                "KalmanFilter",
-                "&&",
-                "./KalmanFilter"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "problemMatcher": [
-                "$gcc"
-            ]
-        }
+      {
+        "label": "build kalman_basic.cpp",
+        "type": "shell",
+        "command": "/usr/bin/g++",
+        "args": [
+          "-g",
+          "kalman_basic.cpp",
+          "-o",
+          "kalman_basic"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$gcc"],
+        "detail": "Build kalman_basic.cpp"
+      },
+      {
+        "label": "build kalman_oov_oned.cpp",
+        "type": "shell",
+        "command": "/usr/bin/g++",
+        "args": [
+          "-g",
+          "kalman_oov_oned.cpp",
+          "-o",
+          "kalman_oov_oned"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": false
+        },
+        "problemMatcher": ["$gcc"],
+        "detail": "Build kalman_oov_oned.cpp"
+      }
     ]
-}
+  }
+  

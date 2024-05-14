@@ -1,5 +1,7 @@
 #include <iostream>
-using namespace std;
+#include <tuple>
+#include <vector>
+#include <chrono>
 //1-D kalman filter
 class KalmanFilter {
 public:
@@ -36,14 +38,24 @@ int main() {
     double ee = 1;
     double iv = 0;
 
+    //example measurements
+    std::vector<double> measurements = {1.0, 2.0, 3.0, 2.0, 3.0, 4.0, 5.0, 6.0, 5.0, 4.0};
+
+    //start time measurement
+    auto start = std::chrono::high_resolution_clock::now();
+
     KalmanFilter kf(pn, mn, ee, iv);
-    double measurement = 0;
-    cout << "Filtered Values:" << endl;
-    for(int i = 0; i < 10; i++) {
-        measurement++; //measurement logic goes here
-        double result = kf.update(measurement);
-        cout << "Measurement: " << measurement << "; Filtered: " << result << endl;
+    std::cout << "Filtered Values:" << std::endl;
+    for(double m : measurements) {
+        double result = kf.update(m);
+        std::cout << "Measurement: " << m << "; Filtered: " << result << std::endl;
     }
+
+    //end time measurement
+    auto end = std::chrono::high_resolution_clock::now();
+    //elapsed time calculation
+    std::chrono::duration<double> elapsed = (end - start) * 1000000;
+    std::cout << "Time taken: " << elapsed.count() << " microseconds" << std::endl;
 
     return 0;
 };
