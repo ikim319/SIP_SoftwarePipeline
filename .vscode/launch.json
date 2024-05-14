@@ -1,0 +1,54 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug kalman_basic.cpp",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/kalman_basic",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ],
+        "preLaunchTask": "build kalman_basic.cpp",
+        "miDebuggerPath": "/usr/bin/lldb",
+        "logging": {
+          "engineLogging": true
+        }
+      },
+      {
+        "name": "Debug kalman_oov_oned.cpp",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/kalman_oov_oned",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ],
+        "preLaunchTask": "build kalman_oov_oned.cpp",
+        "miDebuggerPath": "/usr/bin/lldb",
+        "logging": {
+          "engineLogging": true
+        }
+      }
+    ]
+  }
+  
