@@ -1,5 +1,7 @@
 #include <iostream>
-#include <eigen-3.4.0/Eigen/Dense>
+#include "eigen-3.4.0/Eigen/Dense"
+#include <vector>
+#include <chrono>
 
 class KalmanFilter {
 public:
@@ -117,18 +119,36 @@ int main() {
     kf.setInitialCovariance(P0);
 
     // Simulated measurements
-    std::vector<Eigen::VectorXd> measurements = {
-        (Eigen::VectorXd(1) << 1).finished(),
-        (Eigen::VectorXd(1) << 2).finished(),
-        (Eigen::VectorXd(1) << 3).finished()
-    };
+    std::vector<Eigen::VectorXd> measurements;
+    measurements.push_back((Eigen::VectorXd(1) << 1).finished());
+    measurements.push_back((Eigen::VectorXd(1) << 2).finished());
+    measurements.push_back((Eigen::VectorXd(1) << 3).finished());
 
-    // Kalman filter loop
-    for (const auto &z : measurements) {
-        kf.predict();
-        kf.update(z);
-        std::cout << "Updated state: " << kf.getState().transpose() << std::endl;
+    // Kalman filter loop (benchmarking)
+    const int num_runs = 1000;
+    std::vector<double> times;
+
+    for (int i = 0; i < num_runs; ++i) {
+        auto start = std::chrono::high_resolution_clock::now();
+
+        for (const auto &z : measurements) {
+            kf.predict();
+            kf.update(z);
+        }
+
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = end - start;
+        times.push_back(elapsed.count());
     }
+
+    double sum = 0;
+    for (const auto &time : times) {
+        sum += time;
+    }
+
+    double avg_time = sum * 1000000 / num_runs;
+
+    std::cout << "Average time for " << num_runs << " runs: " << avg_time << " microseconds" << std::endl;
 
     return 0;
 }
