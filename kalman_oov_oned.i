@@ -2,7 +2,7 @@
 %module kalman_basic
 
 %{
-    #include "kalman_oov_oned.cpp"
+    #include "kalman_oov_oned.h"
 %}
 
 %include "std_vector.i"

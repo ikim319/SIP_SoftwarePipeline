@@ -52,6 +52,13 @@
         "optional": "cpp",
         "queue": "cpp",
         "set": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "condition_variable": "cpp",
+        "fstream": "cpp",
+        "future": "cpp",
+        "iomanip": "cpp",
+        "list": "cpp",
+        "unordered_set": "cpp",
+        "valarray": "cpp"
     }
 }
