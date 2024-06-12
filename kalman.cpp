@@ -2,6 +2,7 @@
 #include "eigen-3.4.0/Eigen/Dense"
 #include <vector>
 #include <chrono>
+#include "kalman.h"
 
 class KalmanFilter {
 public:

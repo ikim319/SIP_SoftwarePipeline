@@ -2,6 +2,7 @@
 #include <tuple>
 #include <vector>
 #include <chrono>
+#include "kalman_basic.h"
 //1-D kalman filter functional version
 std::tuple<double, double> kalman_update(double p, double x, double measurement, double pn, double mn) {
     double q = pn; //process noise covariance
