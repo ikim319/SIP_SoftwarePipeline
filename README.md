@@ -14,3 +14,8 @@ Real-Time Software Improvement Project for SIPLab under Dr. Christopher Rozell
     - Adjust the uncertainty based on the measurement accuracy.
   - Iterate:
     - Repeat the predict and update steps for each new measurement, continuously refining the state estimate and reducing uncertainty.
+- Steps for SWIG:
+  1. Generate SWIG wrapper: swig -python -c++ kalman.i
+  2. Compile wrapper and C++ code: g++ -shared -o _kalman.so kalman_wrap.cxx kalman.cpp -I/Library/Frameworks/Python.framework/Versions/3.10/include/python3.10 -L/Library/Frameworks/Python.framework/Versions/3.10/lib -lpython3.10 -std=c++11
+  3. Create Python script that utilizes the module
+  4. Run the Python script: python3 test_kalman.py
