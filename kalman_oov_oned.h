@@ -1,6 +1,6 @@
-// kalman.h
-#ifndef KALMAN_H
-#define KALMAN_H
+// kalman_oov_oned.h
+#ifndef KALMAN_OOV_ONED_H
+#define KALMAN_OOV_ONED_H
 
 #include <vector>
 #include <tuple>
@@ -18,4 +18,4 @@ private:
     double x;
 };
 
-#endif // KALMAN_H
+#endif // KALMAN_OOV_ONED_H
