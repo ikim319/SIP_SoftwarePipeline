@@ -1,4 +1,4 @@
-#include "kalman.h"
+#include "kalman.hpp"
 
 KalmanFilter::KalmanFilter(int state_dim, int meas_dim) {
     x_ = Eigen::VectorXd::Zero(state_dim); // State vector

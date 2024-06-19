@@ -1,16 +1,15 @@
-#ifndef KALMAN_H
-#define KALMAN_H
+#ifndef KALMAN_HPP
+#define KALMAN_HPP
 
 #include "eigen-3.4.0/Eigen/Dense"
-#include <vector>
 
 class KalmanFilter {
 public:
     KalmanFilter(int state_dim, int meas_dim);
-    
+
     void predict();
     void update(const Eigen::VectorXd &z);
-    
+
     void setStateTransition(const Eigen::MatrixXd &F);
     void setMeasurementMatrix(const Eigen::MatrixXd &H);
     void setProcessNoiseCovariance(const Eigen::MatrixXd &Q);
@@ -31,4 +30,4 @@ private:
     Eigen::MatrixXd I_; // Identity matrix
 };
 
-#endif // KALMAN_H
+#endif // KALMAN_HPP
