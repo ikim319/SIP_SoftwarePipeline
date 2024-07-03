@@ -4,17 +4,20 @@
 #include "kalman.hpp"
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <numpy/arrayobject.h>
+#include "eigen-3.4.0/Eigen/Dense"
 %}
 
 /* Include the SWIG interface for NumPy */
 %include "numpy.i"
+
+/* Include the SWIG interface for Eigen */
+%include "eigen.i"
 
 /* Initialize NumPy support */
 %init %{
 import_array();
 %}
 
-/* Define the custom macros */
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -84,5 +87,60 @@ import_array();
     $result = (PyObject*) arr;
 }
 
-/* Include the KalmanFilter class */
+/* Define the custom macros */
+%include "eigen-3.4.0/Eigen/Geometry"
+%include "std_vector.i"
+
+%{
+/* Implementation of the function in the .c or .cpp file */
+void kalman_filter(double* input_array, int input_size, double* output_array, int output_size) {
+    /* Example implementation */
+    for (int i = 0; i < input_size; ++i) {
+        output_array[i] = input_array[i] * 2;  // Dummy operation
+    }
+}
+%}
+
+/* Example function declarations */
+void kalman_filter(double* input_array, int input_size, double* output_array, int output_size);
+
+%include "std_string.i"
+%include "std_vector.i"
+
+/* Add Eigen specific typemaps */
+%typemap(in) (Eigen::VectorXd) {
+    if (!PyArray_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Expected a numpy array");
+        return NULL;
+    }
+    PyArrayObject *arr = (PyArrayObject *) $input;
+    if (PyArray_NDIM(arr) != 1) {
+        PyErr_SetString(PyExc_TypeError, "Expected a 1-dimensional array");
+        return NULL;
+    }
+    if (PyArray_TYPE(arr) != NPY_DOUBLE) {
+        PyErr_SetString(PyExc_TypeError, "Expected an array of type double");
+        return NULL;
+    }
+    $1 = Eigen::VectorXd::Map((double*)PyArray_DATA(arr), PyArray_DIM(arr, 0));
+}
+
+%typemap(in) (Eigen::MatrixXd) {
+    if (!PyArray_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Expected a numpy array");
+        return NULL;
+    }
+    PyArrayObject *arr = (PyArrayObject *) $input;
+    if (PyArray_NDIM(arr) != 2) {
+        PyErr_SetString(PyExc_TypeError, "Expected a 2-dimensional array");
+        return NULL;
+    }
+    if (PyArray_TYPE(arr) != NPY_DOUBLE) {
+        PyErr_SetString(PyExc_TypeError, "Expected an array of type double");
+        return NULL;
+    }
+    $1 = Eigen::MatrixXd::Map((double*)PyArray_DATA(arr), PyArray_DIM(arr, 0), PyArray_DIM(arr, 1));
+}
+
+/* Include the header file */
 %include "kalman.hpp"
