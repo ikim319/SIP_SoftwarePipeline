@@ -75,6 +75,7 @@
         "numericaldiff": "c",
         "openglsupport": "c",
         "specialfunctions": "c",
-        "splines": "c"
+        "splines": "c",
+        "dense": "c"
     }
 }
